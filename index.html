@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My TODO List</title>
+  <!-- Favicon -->
+  <link rel="icon" href="/images/pencil.png">
+  <!-- 브라우저 스타일 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
+  <!-- css,js 연결 -->
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script type="module" defer src="main.js"></script>
+</head>
+
+<body>
+  <div class="loading">
+    <div class="loading1"></div>
+    <div class="loading2"></div>
+    <div class="loading3"></div>
+    <div class="loading4"></div>
+    <div class="loading5"></div>
+  </div>
+  <div class="wrap">
+    <div class="header">
+      <input class="header__input" type="text" placeholder="할 일 추가!">
+      <select class="header__select">
+        <option value="all">ALL</option>
+        <option value="todo">TODO</option>
+        <option value="done">DONE</option>
+      </select>
+      <button class="header__deleteBtn">
+        <div class="header__deleteBtn__icon">🗑️</div>
+      </button>
+      <button class="header__inputBtn">
+        <div class="header__inputBtn__icon">✏️</div>
+      </button>
+    </div>
+    <div class="container">
+      <ul class="list"></ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
