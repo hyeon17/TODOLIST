@@ -191,7 +191,8 @@ body {
   text-decoration: line-through;
   color: lightgray;
 }
-.container .list .priority{
+
+.container .list .priority {
   position: absolute;
   right: 3%;
   width: 7%;
@@ -201,9 +202,11 @@ body {
   font-size: 15px;
   font-style: normal;
 }
-.container .list .priority option{
+
+.container .list .priority option {
   color: #000;
 }
+
 .container .list .done__btn {
   position: absolute;
   left: 0;
@@ -214,18 +217,22 @@ body {
   border-radius: 50%;
   font-size: 30px;
 }
-.container .list .done__btn.done__btn--red{
+
+.container .list .done__btn.done__btn--red {
   background-color: red;
   border-color: red;
 }
-.container .list .done__btn.done__btn--blue{
+
+.container .list .done__btn.done__btn--blue {
   background-color: blue;
   border-color: blue;
 }
-.container .list .done__btn.done__btn--green{
+
+.container .list .done__btn.done__btn--green {
   background-color: green;
   border-color: green;
 }
+
 .container .list .done__btn.done__btn--checked {
   background-color: transparent;
   border-color: darkgray;
@@ -262,19 +269,9 @@ body {
 }
 
 .container .list .createdAt {
-  
   position: absolute;
   right: 25%;
   font-size: 10px;
   height: 10px;
-  margin: 10px 0px;
 
-}
-
-.container .list .updatedAt {
-  position: absolute;
-  right: 25%;
-  font-size: 10px;
-  height: 10px;
-  margin: -10px 0;
 }
