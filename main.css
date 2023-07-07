@@ -1,5 +1,7 @@
 html {
-  min-width: 1280px;
+  max-width: 1280px;
+  min-width: 768px;
+  margin: 0 auto;
 }
 
 body {
@@ -71,48 +73,50 @@ body {
   animation-delay: 0.8s;
 }
 
+.wrap {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .header {
-  width: 80%;
   height: 100px;
   display: flex;
-  position: relative;
-  margin: 3% auto 0 auto;
+  align-items: center;
+  margin: 20px 20px 0 20px;
+  border-radius: 20px 20px 0 0;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
 .header .header__input {
-  position: absolute;
-  width: 70%;
+  flex: 5;
   height: 50px;
-  margin: 2% 0;
-  left: 2%;
   flex-direction: column;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 15px;
+  margin: 0 10px;
+  padding: 5px;
 }
 
 .header .header__select {
-  position: absolute;
-  width: 8%;
+  flex: 1;
   height: 55px;
-  margin: 2% 0;
-  left: 90%;
-  flex-direction: column;
   border: 2px solid #000;
   border-radius: 15px;
   font-size: 18px;
-  padding: 15px;
+  margin: 0 5px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .header .header__inputBtn {
-  position: absolute;
-  width: 7%;
+  flex: 1;
   height: 55px;
-  margin: 2% 0;
-  right: 19%;
-  justify-content: center;
   border: 2px solid #000;
   border-radius: 15px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 .header .header__inputBtn .header__inputBtn__icon {
@@ -125,14 +129,12 @@ body {
 }
 
 .header .header__deleteBtn {
-  position: absolute;
-  width: 7%;
+  flex: 1;
+  margin: 0 5px;
   height: 55px;
-  margin: 2% 0;
-  right: 11%;
-  justify-content: center;
   border: 2px solid #000;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .header .header__deleteBtn .header__deleteBtn__icon {
@@ -145,10 +147,9 @@ body {
 }
 
 .container {
-  width: 80%;
   height: 100%;
   position: relative;
-  margin: 0 auto 3% auto;
+  margin: 0 20px;
   box-shadow: 0px 0px 5px 0px #888;
   display: flex;
   background-image: repeating-linear-gradient(#fdf8c8, #fdf8c8 38px, #ccd 40px);
@@ -165,25 +166,26 @@ body {
 }
 
 .container .list {
-  padding: 0px 16px 0 56px;
-  line-height: 40px;
   font-size: 30px;
-  letter-spacing: 1px;
-  word-spacing: 5px;
   display: flex;
-  position: relative;
   width: 100%;
   flex-direction: column;
 }
 
 .container .list .list__item {
   display: flex;
-  width: inherit;
+  align-items: center;
+  height: 40px;
 }
 
 .container .list .list__item .todo__title {
-  width: 50%;
+  max-width: 840px;
+  min-width: 300px;
+  flex: 2;
+  padding: 5px;
+  margin-left: 50px;
   word-wrap: break-word;
+  height: 35px;
 }
 
 .container .list .list__item.done {
@@ -193,18 +195,18 @@ body {
 }
 
 .container .list .priority {
-  position: absolute;
-  right: 3%;
-  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
   height: 30px;
-  margin: 5px 0 5px 10px;
   border: 2px solid;
   font-size: 15px;
-  font-style: normal;
 }
 
 .container .list .priority option {
   color: #000;
+  text-align: center;
 }
 
 .container .list .done__btn {
@@ -216,6 +218,12 @@ body {
   border: 2px solid #000;
   border-radius: 50%;
   font-size: 30px;
+  cursor: pointer;
+}
+
+.container .list .done__btn.done__btn--default {
+  background-color: transparent;
+  border-color: black;
 }
 
 .container .list .done__btn.done__btn--red {
@@ -247,31 +255,31 @@ body {
 }
 
 .container .list .edit_btn {
-  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 80px;
   height: 40px;
   cursor: pointer;
-  right: 18%;
-  background-color: transparent;
-  border: transparent;
   font-size: 30px;
-  font-style: normal;
 }
 
 .container .list .del__btn {
-  position: absolute;
-  right: 13%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
   height: 40px;
   cursor: pointer;
-  background-color: transparent;
-  border: transparent;
   font-size: 30px;
-  font-style: normal;
 }
 
-.container .list .createdAt {
-  position: absolute;
-  right: 25%;
+.container .list .todo__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 0 5px;
   font-size: 10px;
-  height: 10px;
 
 }
