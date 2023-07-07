@@ -1,4 +1,4 @@
-import { readTodos, reOrder, createTodo, updateTodo, deleteTodo } from './api.js';
+import { readTodos, createTodo, updateTodo, deleteTodo } from './api.js';
 import { dateEl } from './date.js';
 import { editButton } from './edit.js';
 import { deleteButton } from './delete.js';
@@ -21,8 +21,15 @@ inputEl.addEventListener('input', () => {
 // 입력 후 엔터시 생성
 inputEl.addEventListener('keydown', (event) => {
 	if (event.key === 'Enter' && !event.isComposing) {
-		create_btnEl.click();
-		inputEl.value = '';
+		if (event.key === 'Enter' && !event.isComposing) {
+			if (inputText.length > 20) {
+				alert('20자 이내로 입력해주세요.');
+			} else {
+				create_btnEl.click();
+				inputEl.value = '';
+			}
+			event.preventDefault();
+		}
 	}
 });
 
@@ -30,9 +37,15 @@ inputEl.addEventListener('keydown', (event) => {
 create_btnEl.addEventListener('click', async () => {
 	if (preventDoubleClick) return;
 	preventDoubleClick = true;
-	await createTodo(inputText);
-	loading();
-	inputEl.value = '';
+
+	if (inputText.length > 20) {
+		alert('20자 이내로 입력해주세요.');
+	} else {
+		await createTodo(inputText);
+		loading();
+		inputEl.value = '';
+	}
+
 	preventDoubleClick = false;
 });
 
@@ -52,7 +65,7 @@ all_del_btnEl.addEventListener('click', async () => {
 		loadingEl.style.display = 'none';
 		renderTodos(todos);
 		location.reload();
-	},4000);
+	}, 4000);
 	preventDoubleClick = false;
 });
 
@@ -84,7 +97,6 @@ export async function renderTodos(todos) {
 				...todo,
 				done: !todo.done,
 			});
-
 			loading();
 		});
 
@@ -99,50 +111,50 @@ export async function renderTodos(todos) {
 
 		const priorityEl = document.createElement('select');
 		priorityEl.classList.add('priority');
-		const priority1 = document.createElement('option');
-		const priority2 = document.createElement('option');
-		const priority3 = document.createElement('option');
-		priority1.value = '0';
-		priority1.textContent = '⭐⭐⭐';
-		priority2.value = '1';
-		priority2.textContent = '⭐⭐';
-		priority3.value = '2';
-		priority3.textContent = '⭐';
-		priorityEl.append(priority1, priority2, priority3);
+		const priorityOptions = [
+			{ value: '0', textContent: '🏅' },
+			{ value: '1', textContent: '🥇' },
+			{ value: '2', textContent: '🥈' },
+			{ value: '3', textContent: '🥉' },
+		];
+
+		priorityOptions.forEach((optionData) => {
+			const option = document.createElement('option');
+			option.value = optionData.value;
+			option.textContent = optionData.textContent;
+			priorityEl.appendChild(option);
+		});
+
+		function doneBtnColor(value) {
+			done_btnEl.classList.remove('done__btn--default');
+			done_btnEl.classList.remove('done__btn--red');
+			done_btnEl.classList.remove('done__btn--blue');
+			done_btnEl.classList.remove('done__btn--green');
+
+			if (value === '0') {
+				done_btnEl.classList.add('done__btn--default');
+				priorityEl.value = '0';
+			} else if (value === '1') {
+				done_btnEl.classList.add('done__btn--red');
+				priorityEl.value = '1';
+			} else if (value === '2') {
+				done_btnEl.classList.add('done__btn--blue');
+				priorityEl.value = '2';
+			} else if (value === '3') {
+				done_btnEl.classList.add('done__btn--green');
+				priorityEl.value = '3';
+			}
+		}
 
 		const todoItem = JSON.parse(localStorage.getItem('todo')) || [];
 		todoItem.forEach((item) => {
 			if (todo.id && item.id === todo.id) {
-				if (item.value === '0') {
-					done_btnEl.classList.add('done__btn--red');
-					done_btnEl.classList.remove('done__btn--blue');
-					done_btnEl.classList.remove('done__btn--green');
-				} else if (item.value === '1') {
-					done_btnEl.classList.add('done__btn--blue');
-					done_btnEl.classList.remove('done__btn--red');
-					done_btnEl.classList.remove('done__btn--green');
-				} else if (item.value === '2') {
-					done_btnEl.classList.add('done__btn--green');
-					done_btnEl.classList.remove('done__btn--red');
-					done_btnEl.classList.remove('done__btn--blue');
-				}
+				doneBtnColor(item.value);
 			}
 		});
 
 		priorityEl.addEventListener('change', async () => {
-			if (priorityEl.value === '0') {
-				done_btnEl.classList.add('done__btn--red');
-				done_btnEl.classList.remove('done__btn--blue');
-				done_btnEl.classList.remove('done__btn--green');
-			} else if (priorityEl.value === '1') {
-				done_btnEl.classList.add('done__btn--blue');
-				done_btnEl.classList.remove('done__btn--red');
-				done_btnEl.classList.remove('done__btn--green');
-			} else if (priorityEl.value === '2') {
-				done_btnEl.classList.add('done__btn--green');
-				done_btnEl.classList.remove('done__btn--red');
-				done_btnEl.classList.remove('done__btn--blue');
-			}
+			doneBtnColor(priorityEl.value);
 
 			const todoData = { id: todo.id, value: priorityEl.value };
 			const existingData = localStorage.getItem('todo');
@@ -162,7 +174,7 @@ export async function renderTodos(todos) {
 			localStorage.setItem('todo', JSON.stringify(updatedTodos));
 		});
 
-		listItem.append(done_btnEl, edit_btnEl, del_btnEl, dateElement, priorityEl);
+		listItem.append(done_btnEl, edit_btnEl, del_btnEl, priorityEl, dateElement);
 		return listItem;
 	});
 	listEl.innerHTML = '';
