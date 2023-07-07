@@ -1,4 +1,5 @@
 # 프로젝트 소개
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9ec7909a-ce0e-4741-9311-5f056733c261/deploy-status)](https://app.netlify.com/sites/zesty-croquembouche-345c5a/deploys)
 ## 1. 프로젝트 개요
 ### 링크
 [MY TODO](https://zesty-croquembouche-345c5a.netlify.app/)
@@ -50,3 +51,6 @@ todolist
 
 ### 5.4 중요도에 따라 완료 버튼에 색상이 추가됨
 ![](/images/1.png)
+
+### 5.5 드래그 앤 드롭으로 할일의 순서를 변경
+![](/images/swap.gif)
