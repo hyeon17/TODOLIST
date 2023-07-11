@@ -37,7 +37,6 @@ inputEl.addEventListener('keydown', (event) => {
 create_btnEl.addEventListener('click', async () => {
 	if (preventDoubleClick) return;
 	preventDoubleClick = true;
-
 	if (inputText.length > 20) {
 		alert('20자 이내로 입력해주세요.');
 	} else {
@@ -45,7 +44,6 @@ create_btnEl.addEventListener('click', async () => {
 		loading();
 		inputEl.value = '';
 	}
-
 	preventDoubleClick = false;
 });
 
@@ -111,6 +109,8 @@ export async function renderTodos(todos) {
 
 		const priorityEl = document.createElement('select');
 		priorityEl.classList.add('priority');
+
+		// 우선순위 옵션 정의
 		const priorityOptions = [
 			{ value: '0', textContent: '🏅' },
 			{ value: '1', textContent: '🥇' },
@@ -118,6 +118,7 @@ export async function renderTodos(todos) {
 			{ value: '3', textContent: '🥉' },
 		];
 
+		// 옵션 추가
 		priorityOptions.forEach((optionData) => {
 			const option = document.createElement('option');
 			option.value = optionData.value;
@@ -125,6 +126,7 @@ export async function renderTodos(todos) {
 			priorityEl.appendChild(option);
 		});
 
+		// 선택한 우선 순위 값에 따라 버튼의 색상을 변경
 		function doneBtnColor(value) {
 			done_btnEl.classList.remove('done__btn--default');
 			done_btnEl.classList.remove('done__btn--red');
@@ -147,6 +149,7 @@ export async function renderTodos(todos) {
 		}
 
 		const todoItem = JSON.parse(localStorage.getItem('todo')) || [];
+		// todoItem 배열을 순회하면서 현재 todo의 id와 일치하는 항목이 있는 경우 doneBtnColor 함수를 호출하여 우선 순위를 설정.
 		todoItem.forEach((item) => {
 			if (todo.id && item.id === todo.id) {
 				doneBtnColor(item.value);
@@ -156,14 +159,21 @@ export async function renderTodos(todos) {
 		priorityEl.addEventListener('change', async () => {
 			doneBtnColor(priorityEl.value);
 
+			// todo의 id와 선택한 우선 순위 값을 todoData 객체로 생성
 			const todoData = { id: todo.id, value: priorityEl.value };
 			const existingData = localStorage.getItem('todo');
+
+			// existingData가 존재하는 경우 JSON 파싱하여 todos에 할당하고, 그렇지 않은 경우 빈 배열로 초기화
 			let todos = existingData ? JSON.parse(existingData) : [];
+
+			// todos에 중복된 id가 있는지 확인
 			const isDuplicateId = todos.some((item) => item.id === todo.id);
 			if (!isDuplicateId) {
 				todos.push(todoData);
 				localStorage.setItem('todo', JSON.stringify(todos));
 			}
+
+			// todos를 순회하면서 현재 todo의 id와 일치하는 항목의 우선 순위 값을 업데이트
 			const updatedTodos = todos.map((item) => {
 				if (item.id === todo.id) {
 					return { ...item, value: priorityEl.value };
